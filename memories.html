@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Memories &middot; BHS Class of 2006</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fx" class="fx"></canvas>
+<nav class="nav">
+  <a class="brand" href="index.html"><img class="bronco-nav" src="bronco.png" alt="">  BHS <span>&rsquo;06</span></a>
+  <div class="links">
+    <a href="index.html">Classmates</a>
+    <a href="memories.html" class="active">Memories</a>
+  </div>
+</nav>
+
+<header class="hero short">
+  <div class="hero-inner">
+    <p class="eyebrow">Guestbook</p>
+    <h1>Memories</h1>
+    <p class="sub">Sign in, share a story, say you were there.</p>
+  </div>
+</header>
+
+<main class="journal">
+  <form id="entry-form" class="entry-form">
+    <input id="author" type="text" placeholder="Your name" required>
+    <textarea id="body" rows="5" placeholder="Share a memory from back then, or from the reunion..." required></textarea>
+    <div class="attach-row">
+      <input id="photo" type="file" accept="image/*" hidden>
+      <button type="button" id="attach-btn" class="attach">Attach a photo</button>
+      <span id="attach-name" class="attach-name"></span>
+      <button type="button" id="attach-clear" class="attach-clear" hidden>Remove</button>
+    </div>
+    <img id="attach-preview" class="attach-preview" alt="" hidden>
+    <button type="submit">Post memory</button>
+    <p class="note" id="storage-note"></p>
+    <p class="note" id="post-status"></p>
+  </form>
+  <div id="entries" class="entries"></div>
+</main>
+
+<footer class="foot">
+  <p>Banning High School, Class of 2006 &middot; 20 Year Reunion</p>
+  <p class="copy">&copy; 2026 Hilborn Technologies. All rights reserved.</p>
+</footer>
+
+<script src="memories-config.js"></script>
+<script src="journal.js"></script>
+<script src="particles.js"></script>
+</body>
+</html>

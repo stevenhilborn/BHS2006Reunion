@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Banning High School &middot; Class of 2006</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="fx" class="fx"></canvas>
+<nav class="nav">
+  <a class="brand" href="index.html"><img class="bronco-nav" src="bronco.png" alt="">  BHS <span>&rsquo;06</span></a>
+  <div class="links">
+    <a href="index.html" class="active">Classmates</a>
+    <a href="memories.html">Memories</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    
+    <img class="crest" src="bronco.png" alt="Banning Broncos">
+    <p class="eyebrow">Home of the Broncos &middot; Banning, California</p>
+    <h1>Class of 2006</h1>
+    <p class="sub">Twenty years later. <span id="count"></span> classmates, one page.</p>
+    <div class="search-wrap">
+      <input id="search" type="search" placeholder="Search for a name..." autocomplete="off">
+    </div>
+    <a class="scroll-cue" href="#grid" aria-label="Scroll to classmates"></a>
+  </div>
+</header>
+
+<section class="stats">
+  <div class="stat"><span class="num" data-to="20">0</span><span class="lbl">Years</span></div>
+  <div class="stat"><span class="num" data-to="130">0</span><span class="lbl">Classmates</span></div>
+  <div class="stat"><span class="num" data-to="2006">0</span><span class="lbl">Class of</span></div>
+</section>
+
+<main id="grid" class="grid-wrap">
+  <p class="empty" id="empty" hidden>No one found by that name.</p>
+  <div class="grid" id="cards"></div>
+</main>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lb-close" id="lb-close" aria-label="Close">&times;</button>
+  <button class="lb-nav prev" id="lb-prev" aria-label="Previous">&#8249;</button>
+  <figure class="lb-fig">
+    <div class="lb-pair">
+      <div class="lb-one"><img id="lb-img" src="" alt=""><span class="lb-tag">2006</span></div>
+      <div class="lb-one" id="lb-now-wrap" hidden><img id="lb-now" alt=""><span class="lb-tag">Now</span></div>
+    </div>
+    <figcaption id="lb-cap"></figcaption>
+  </figure>
+  <button class="lb-nav next" id="lb-next" aria-label="Next">&#8250;</button>
+</div>
+
+<footer class="foot">
+  <p>Banning High School, Class of 2006 &middot; 20 Year Reunion</p>
+  <p class="copy">&copy; 2026 Hilborn Technologies. All rights reserved.</p>
+</footer>
+
+<script src="memories-config.js"></script>
+<script src="form-config.js"></script>
+<script src="classmates.js"></script>
+<script src="app.js"></script>
+<script src="particles.js"></script>
+</body>
+</html>

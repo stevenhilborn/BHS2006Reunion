@@ -8,4 +8,4 @@
    entries only in each visitor's own browser.
 --------------------------------------------------------------- */
 
-var MEMORIES_URL = "";
+var MEMORIES_URL = "https://script.google.com/macros/s/AKfycby7TapnWE9NE3SvrtaD02hDRTQ-L-Wrw9gnZQCLiGAE-nNUG5Pr4Kic5M4naT9Y6P5_/exec";

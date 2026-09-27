@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gallery &middot; BHS Class of 2006</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="gallery.css">
+</head>
+<body class="gallery-page">
+<canvas id="motes" class="motes" aria-hidden="true"></canvas>
+<div class="g-vignette" aria-hidden="true"></div>
+<nav class="nav">
+  <a class="brand" href="index.html"><img class="bronco-nav" src="bronco.png" alt="">  BHS <span>&rsquo;06</span></a>
+  <div class="links">
+    <a href="index.html">Classmates</a>
+    <a href="gallery.html" class="active">Gallery</a>
+    <a href="memories.html">Memories</a>
+  </div>
+</nav>
+
+<main class="scroller" id="scroller">
+  <div class="stage" id="stage">
+    <div class="helix" id="helix"></div>
+    <div class="rail" id="rail" aria-label="Jump to photo"></div>
+    <div class="hint" id="hint">Scroll to spiral down</div>
+    <div class="caption" id="caption" aria-live="polite">
+      <div class="swap">
+        <h2 id="cap-title"></h2>
+        <p id="cap-names"></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="g-lightbox" id="lightbox" hidden>
+  <button class="lb-close" type="button" id="lb-close" aria-label="Close">&times;</button>
+  <figure>
+    <img id="lb-img" alt="">
+    <figcaption><h3 id="lb-title"></h3><p id="lb-names"></p></figcaption>
+  </figure>
+</div>
+
+<footer class="foot">
+  <p>Banning High School, Class of 2006 &middot; 20 Year Reunion</p>
+  <p class="copy">&copy; 2026 Hilborn Technologies. All rights reserved.</p>
+</footer>
+
+<script src="gallery.js"></script>
+</body>
+</html>

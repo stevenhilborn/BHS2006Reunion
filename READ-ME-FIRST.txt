@@ -1,0 +1,149 @@
+BANNING BRONCOS - CLASS OF 2006 REUNION SITE
+============================================
+
+TO VIEW THE SITE
+----------------
+Extract this whole folder first, then open index.html.
+Opening index.html from inside the zip will show plain
+text with no styling.
+
+
+=====================================================
+THE ONE SETUP STEP  (Google Apps Script)
+=====================================================
+One web address powers everything: the shared memories
+guestbook AND the current photos classmates add under their
+portraits. Until you do this, both save only in the visitor's
+own browser and nobody else sees them.
+
+ 1. Go to sheets.google.com and create a new blank spreadsheet.
+    Name it something like "Class of 2006 Reunion".
+
+ 2. In that sheet, click  Extensions -> Apps Script.
+    A code editor opens in a new tab.
+
+ 3. Delete whatever code is already in there.
+
+ 4. Open  apps-script/Code.gs  from this folder in Notepad.
+    Select all, copy, paste it into the Apps Script editor.
+    Click the save icon.
+
+ 5. Click the blue  Deploy  button (top right) ->
+    New deployment.
+
+ 6. Click the gear icon next to "Select type" and choose
+    Web app.
+
+ 7. Fill in:
+        Description:      reunion site
+        Execute as:       Me
+        Who has access:   Anyone
+
+    That last one matters. It must say "Anyone", not
+    "Anyone with Google account", or classmates will be
+    forced to sign in.
+
+ 8. Click Deploy. Google will ask you to authorise it.
+    Click through: Authorize access -> pick your account ->
+    Advanced -> "Go to (project name) (unsafe)" -> Allow.
+    That warning is normal for a script you wrote yourself.
+
+ 9. Copy the Web app URL. It looks like:
+        https://script.google.com/macros/s/AKfy..../exec
+
+10. Open  memories-config.js  in Notepad. Paste the URL
+    between the empty quotes so it reads:
+
+        var MEMORIES_URL = "https://script.google.com/macros/s/AKfy..../exec";
+
+    Keep the quotes. Save the file. That is it - the gallery
+    page and the memories page both read that one line.
+
+IF YOU ALREADY DEPLOYED AN EARLIER VERSION: paste the new
+Code.gs in, then Deploy -> Manage deployments -> pencil icon
+-> Version: New version -> Deploy. Your URL stays the same.
+
+
+WHAT LANDS WHERE
+----------------
+Your spreadsheet grows two tabs automatically:
+
+  Memories       - timestamp, name, memory, photo link, approved
+  CurrentPhotos  - timestamp, classmate, filename, photo link, approved
+
+And two folders appear in your Google Drive:
+
+  Reunion Memory Photos   - pictures attached to memories
+  Reunion Current Photos  - the "then and now" photos
+
+
+MODERATING
+----------
+Both tabs have an "Approved" column that says yes on every new
+row. Change any cell to  no  and that item disappears from the
+site. Deleting the row works too. To drop a photo but keep the
+words, clear the Photo cell.
+
+If two people upload a photo for the same classmate, the lower
+row in the sheet wins - so to swap a photo, just delete the row
+you do not want.
+
+
+=====================================================
+FACEBOOK AND INSTAGRAM LINKS
+=====================================================
+Open classmates.js in Notepad. Each person looks like this:
+
+  {
+    "name": "Alex Acosta",
+    "file": "Alex_Acosta.jpg",
+    "facebook": "",
+    "instagram": ""
+  }
+
+Paste the profile URL between the quotes and save. Anyone with
+a link gets their name hyperlinked automatically, and a small
+Facebook or Instagram pill appears on their card.
+
+
+The same works in not-pictured.js for the 48 classmates who
+were not in the yearbook. Their current photos, once added, fill
+the empty spot on their card.
+
+
+=====================================================
+PUTTING THE SITE ONLINE (FREE)
+=====================================================
+Easiest option: go to  app.netlify.com/drop  and drag this
+whole folder onto the page. You get a live web address in
+seconds.
+
+GitHub Pages also works and is free, but takes more steps.
+
+IMPORTANT: photo uploads and shared memories only work once the
+site is online. Opening the files straight off your hard drive
+will usually block them, and the site will quietly fall back to
+saving things in your own browser instead.
+
+
+=====================================================
+FILES IN THIS FOLDER
+=====================================================
+index.html            the classmates page (portraits, plus the
+                      "Not Pictured in the Yearbook" section at the bottom)
+gallery.html          the spiral photo gallery (Senior Favorites + candids)
+memories.html         the guestbook page
+style.css             all the styling
+app.js                gallery, search, lightbox, photo uploads
+particles.js          the animated background
+journal.js            the guestbook
+classmates.js         the 130 names and photo filenames
+not-pictured.js       the 48 classmates with no yearbook portrait
+gallery.js            the gallery photo list and spiral animation
+gallery.css           styling for the gallery page
+memories-config.js    where your Apps Script URL goes  <-- EDIT THIS
+form-config.js        on/off switch for the upload buttons
+apps-script/Code.gs   the code to paste into Google Apps Script
+bronco.png            the Broncos crest
+photos/               the 130 portraits
+gallery/              the 28 gallery photos

@@ -11,6 +11,7 @@
   var preview = document.getElementById('attach-preview');
   var URL_SET = (typeof MEMORIES_URL !== 'undefined') && MEMORIES_URL;
   var pendingPhoto = '';
+  var preparing = false;
 
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) {
@@ -21,7 +22,7 @@
     try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; }
   }
   function localSave(v) {
-    try { localStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {}
+    try { localStorage.setItem(KEY, JSON.stringify(v)); return true; } catch (e) { return false; }
   }
 
   /* shrink an image in the browser so uploads stay small */
@@ -38,7 +39,10 @@
           var c = document.createElement('canvas');
           c.width = Math.round(w * scale);
           c.height = Math.round(h * scale);
-          c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+          var cx = c.getContext('2d');
+          cx.fillStyle = '#fff';                 /* keeps transparent PNGs from turning black */
+          cx.fillRect(0, 0, c.width, c.height);
+          cx.drawImage(img, 0, 0, c.width, c.height);
           resolve(c.toDataURL('image/jpeg', quality));
         };
         img.src = reader.result;
@@ -61,13 +65,16 @@
       var f = fileEl.files && fileEl.files[0];
       if (!f) { clearPhoto(); return; }
       attachName.textContent = 'Preparing photo...';
+      preparing = true;
       shrink(f, 1400, 0.82).then(function (dataUrl) {
+        preparing = false;
         pendingPhoto = dataUrl;
         attachName.textContent = f.name.length > 28 ? f.name.slice(0, 25) + '...' : f.name;
         attachClear.hidden = false;
         preview.src = dataUrl;
         preview.hidden = false;
       }).catch(function () {
+        preparing = false;
         attachName.textContent = 'That file could not be read.';
         pendingPhoto = '';
       });
@@ -117,6 +124,10 @@
     var author = document.getElementById('author').value.trim();
     var body = bodyEl.value.trim();
     if (!author || !body) return;
+    if (preparing) {
+      if (statusEl) statusEl.textContent = 'One moment - your photo is still getting ready.';
+      return;
+    }
 
     var btn = form.querySelector('button[type="submit"]');
 
@@ -126,7 +137,18 @@
         author: author, body: body, photo: pendingPhoto,
         when: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
       });
-      localSave(items);
+      if (!localSave(items)) {
+        /* browser storage is full - keep the words, drop the photo */
+        items[0].photo = '';
+        if (!localSave(items)) {
+          items.shift();
+          if (statusEl) statusEl.textContent = 'This browser is out of space, so the memory could not be saved.';
+          return;
+        }
+        if (statusEl) statusEl.textContent = 'Saved without the photo - this browser is out of space.';
+      } else if (statusEl) {
+        statusEl.textContent = '';
+      }
       bodyEl.value = '';
       clearPhoto();
       paint(items);

@@ -1,0 +1,93 @@
+/* ---------------------------------------------------------------
+   Gallery page  -  the downward spiral of yearbook photos.
+   Uses the colors from style.css (:root) so it matches the site.
+--------------------------------------------------------------- */
+.gallery-page{overflow-x:hidden}
+.motes{position:fixed; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; display:block}
+.g-vignette{
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 45%, transparent 38%, rgba(0,0,0,.6) 100%);
+}
+.gallery-page .foot{position:relative; z-index:3; background:var(--bg)}
+/* the nav floats over the spiral so the photo and caption get the full screen */
+.gallery-page .nav{position:fixed; left:0; right:0; top:0}
+
+.scroller{position:relative; z-index:2}
+.stage{
+  position:sticky; top:0; height:100vh; height:100dvh;
+  overflow:hidden; perspective:1400px; perspective-origin:50% 42%;
+}
+.helix{position:absolute; left:50%; top:46%; transform-style:preserve-3d; will-change:transform}
+
+.g-card{
+  position:absolute; left:0; top:0;
+  width:var(--cw); margin-left:calc(var(--cw) / -2); margin-top:calc(var(--cw) / -2); /* sized per photo in gallery.js */
+  transform-style:preserve-3d; backface-visibility:hidden;
+  will-change:transform, opacity;
+  outline:1px solid transparent;   /* smooths the rotated edges */
+  cursor:pointer;
+}
+.g-card .frame{
+  background:#000; padding:6px; border-radius:6px;
+  box-shadow:0 30px 60px rgba(0,0,0,.55), 0 0 0 1px var(--line);
+  transition:box-shadow .4s;
+}
+.g-card.is-active .frame{
+  box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(245,183,0,.65), 0 0 60px rgba(245,183,0,.16);
+}
+.g-card .pic{position:relative; overflow:hidden; aspect-ratio:1 / .92; max-width:100%; transform:translateZ(0); border-radius:3px}
+.g-card .pic img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+/* the blurred copy is made once and cross-faded, so nothing is re-blurred while scrolling */
+.g-card .pic .soft{filter:blur(7px); transform:scale(1.06)}
+.g-card .shade{position:absolute; inset:0; background:#000; pointer-events:none}
+
+/* caption under the photo in focus */
+.caption{
+  position:absolute; left:0; right:0; bottom:calc(env(safe-area-inset-bottom, 0px) + 6vh);
+  text-align:center; padding-inline:20px; z-index:5; pointer-events:none;
+}
+.caption h2{
+  margin:0 auto; max-width:900px;
+  font-size:clamp(30px,5vw,56px); line-height:1.02; font-weight:800; letter-spacing:-.03em;
+  background:linear-gradient(180deg,#fff,#b9c2d0); -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-wrap:balance; filter:drop-shadow(0 2px 18px rgba(0,0,0,.8));
+}
+.caption p{margin:10px 0 0; font-size:clamp(15px,1.8vw,19px); font-weight:600; color:var(--accent2)}
+.caption .swap{transition:opacity .35s ease, transform .35s ease}
+.caption.fading .swap{opacity:0; transform:translateY(6px)}
+
+/* tick marks on the right for jumping to a photo */
+.rail{position:absolute; right:18px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:2px; z-index:6}
+.rail button{appearance:none; border:0; background:transparent; padding:4px; cursor:pointer; display:flex; justify-content:flex-end}
+.rail button i{display:block; width:12px; height:2px; background:var(--line); transition:width .3s, background .3s}
+.rail button[aria-current="true"] i{width:28px; background:var(--accent)}
+.rail button:hover i{background:var(--accent2)}
+.rail button:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px}
+
+.hint{
+  position:absolute; left:50%; top:calc(env(safe-area-inset-top, 0px) + 84px); transform:translateX(-50%);
+  font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted);
+  z-index:5; transition:opacity .6s; white-space:nowrap;
+}
+.hint.gone{opacity:0}
+
+/* full-size view */
+.g-lightbox[hidden]{display:none!important}
+.g-lightbox{
+  position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:24px 16px;
+  background:rgba(6,7,10,.94); backdrop-filter:blur(8px); animation:fade .25s both;
+}
+.g-lightbox figure{margin:0; max-width:min(92vw,900px); display:grid; gap:14px; text-align:center}
+.g-lightbox img{max-height:74vh; width:auto; max-width:100%; margin:0 auto; border-radius:12px; box-shadow:0 24px 70px rgba(0,0,0,.7)}
+.g-lightbox h3{margin:0; font-size:24px; font-weight:800; letter-spacing:-.02em}
+.g-lightbox p{margin:0; font-size:16px; font-weight:600; color:var(--accent2)}
+
+@media (max-width:640px){
+  .rail{right:6px}
+  .rail button{padding:3px}
+  .caption{bottom:calc(env(safe-area-inset-bottom, 0px) + 5vh)}
+  .hint{top:calc(env(safe-area-inset-top, 0px) + 72px)}
+}
+@media (max-height:560px){
+  .rail{display:none}
+}

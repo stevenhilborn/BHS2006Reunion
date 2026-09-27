@@ -289,3 +289,41 @@ a{color:inherit;text-decoration:none}
 .lb-nav:focus-visible{
   outline:2px solid var(--accent); outline-offset:3px; border-radius:10px;
 }
+
+/* --- Not Pictured in the Yearbook (bottom of the Classmates page) --- */
+.np-wrap{max-width:1240px; margin:0 auto; padding:10px 24px 100px; scroll-margin-top:64px; position:relative; z-index:1}
+.np-wrap[hidden]{display:none}
+.np-head{text-align:center; max-width:640px; margin:0 auto 38px; padding-top:44px; border-top:1px solid var(--line)}
+.np-head h2{
+  margin:0; font-size:clamp(30px,5vw,48px); line-height:1.02; font-weight:800; letter-spacing:-.03em;
+  background:linear-gradient(180deg,#fff,#b9c2d0); -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-wrap:balance;
+}
+.np-head .sub{margin-top:14px; line-height:1.55}
+.card.np .shot.empty-shot{
+  cursor:default; display:grid; place-items:center;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(245,183,0,.10), transparent 62%),
+    linear-gradient(180deg, #161b23, #0f1217);
+}
+.card.np .initials{
+  font-size:clamp(40px,5vw,58px); font-weight:800; letter-spacing:-.02em; line-height:1;
+  color:var(--accent); opacity:.85; transform:translateY(-8px);
+}
+.card.np .soon{
+  position:absolute; left:0; right:0; bottom:14px; text-align:center;
+  font-size:10.5px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--muted);
+}
+.card.np .shot img{width:100%; height:100%; object-fit:cover; display:block}
+@media (max-width:640px){
+  .np-wrap{padding:0 16px 70px}
+  .np-head{margin-bottom:26px; padding-top:32px}
+}
+
+/* three nav links on narrow phones */
+@media (max-width:400px){
+  .nav{padding:10px 12px}
+  .brand{font-size:16px}
+  .bronco-nav{height:26px; margin-right:4px}
+  .links a{margin-left:12px; font-size:13px}
+}
